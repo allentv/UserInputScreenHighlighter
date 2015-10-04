@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace UserInputScreenHighlighter
 {
     partial class Form1
     {

@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace UserInputScreenHighlighter
 {
     public partial class Form1 : Form
     {
@@ -114,11 +114,14 @@ namespace WindowsFormsApplication1
         private static IntPtr HookCallback(
             int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0 && (wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYUP || wParam == (IntPtr)WM_SYSKEYDOWN))
+            if (nCode >= 0)
             {
-                int vkCode = Marshal.ReadInt32(lParam);
-                //Console.WriteLine((Keys)vkCode);
-                ProcessUserKeyPress((Keys)vkCode);
+                if (wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYUP || wParam == (IntPtr)WM_SYSKEYDOWN)
+                {
+                    int vkCode = Marshal.ReadInt32(lParam);
+                    //Console.WriteLine((Keys)vkCode);
+                    ProcessUserKeyPress((Keys)vkCode);
+                }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
@@ -144,7 +147,7 @@ namespace WindowsFormsApplication1
                 currMessage = keys.ToString();
             }
             // Check for modifier combinations
-            if("+Shift+Ctrl+Alt+".Contains(prevMessage))
+            if("+Shift+".Contains(prevMessage) || "+Ctrl+".Contains(prevMessage) || "+Alt+".Contains(prevMessage))
             {
                 if (!prevMessage.Equals(currMessage) && !prevMessage.Equals(""))
                 {
