@@ -17,6 +17,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+UserInputScreenHighlighter/bin/*
+UserInputScreenHighlighter/obj/*
+
+
 # =========================
 # Operating System Files
 # =========================
